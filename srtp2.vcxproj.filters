@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -48,9 +48,6 @@
     <ClCompile Include="crypto\kernel\key.c">
       <Filter>Source Files\Kernel</Filter>
     </ClCompile>
-    <ClCompile Include="crypto\cipher\aes.c">
-      <Filter>Source Files\Ciphers</Filter>
-    </ClCompile>
     <ClCompile Include="crypto\cipher\aes_icm.c">
       <Filter>Source Files\Ciphers</Filter>
     </ClCompile>
@@ -69,9 +66,6 @@
     <ClCompile Include="crypto\hash\null_auth.c">
       <Filter>Source Files\Hashes</Filter>
     </ClCompile>
-    <ClCompile Include="crypto\hash\sha1.c">
-      <Filter>Source Files\Hashes</Filter>
-    </ClCompile>
     <ClCompile Include="crypto\replay\rdb.c">
       <Filter>Source Files\Replay</Filter>
     </ClCompile>
@@ -86,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="crypto\math\stat.c">
       <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="crypto\cipher\aes.c">
+      <Filter>Source Files\Ciphers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
