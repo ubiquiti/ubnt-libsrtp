@@ -81,6 +81,9 @@
     <ClCompile Include="crypto\math\stat.c">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
+    <ClCompile Include="crypto\cipher\aes.c">
+      <Filter>Source Files\Ciphers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypto\include\aes.h">

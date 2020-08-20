@@ -170,6 +170,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="crypto\cipher\aes.c" />
     <ClCompile Include="crypto\cipher\aes_icm.c" />
     <ClCompile Include="crypto\cipher\cipher.c" />
     <ClCompile Include="crypto\cipher\null_cipher.c" />
