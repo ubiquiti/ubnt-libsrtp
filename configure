@@ -685,7 +685,6 @@ infodir
 docdir
 oldincludedir
 includedir
-runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -776,7 +775,6 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
-runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE_TARNAME}'
@@ -1029,15 +1027,6 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
-  -runstatedir | --runstatedir | --runstatedi | --runstated \
-  | --runstate | --runstat | --runsta | --runst | --runs \
-  | --run | --ru | --r)
-    ac_prev=runstatedir ;;
-  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
-  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
-  | --run=* | --ru=* | --r=*)
-    runstatedir=$ac_optarg ;;
-
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1175,7 +1164,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir runstatedir
+		libdir localedir mandir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1328,7 +1317,6 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
-  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -5513,8 +5501,8 @@ fi
    if test "x$PKG_CONFIG" != "x"; then
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for crypto" >&5
-$as_echo_n "checking for crypto... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for libcrypto >= 1.0.1" >&5
+$as_echo_n "checking for libcrypto >= 1.0.1... " >&6; }
 
 if test -n "$crypto_CFLAGS"; then
     pkg_cv_crypto_CFLAGS="$crypto_CFLAGS"
@@ -5554,7 +5542,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -5581,7 +5569,7 @@ Alternatively, you may set the environment variables crypto_CFLAGS
 and crypto_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
 elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
 $as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
@@ -5897,60 +5885,6 @@ $as_echo "#define OPENSSL 1" >>confdefs.h
    USE_EXTERNAL_CRYPTO=1
 
 
-   { $as_echo "$as_me:${as_lineno-$LINENO}: checking if OPENSSL_cleanse is broken" >&5
-$as_echo_n "checking if OPENSSL_cleanse is broken... " >&6; }
-   if test "$cross_compiling" = yes; then :
-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-as_fn_error $? "cannot run test program while cross compiling
-See \`config.log' for more details" "$LINENO" 5; }
-else
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-     #include <stdio.h>
-     #include <openssl/crypto.h>
-
-int
-main ()
-{
-
-     #define BUFFER_SIZE (16)
-     char buffer[BUFFER_SIZE];
-     int i;
-     for (i = 0; i < BUFFER_SIZE; i++) {
-       buffer[i] = i & 0xff;
-     }
-     OPENSSL_cleanse(buffer, BUFFER_SIZE);
-     for (i = 0; i < BUFFER_SIZE; i++) {
-       if (buffer[i]) {
-         printf("Buffer contents not zero at position %d (is %d)\n", i,
-             buffer[i]);
-         return 1;
-       }
-     }
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_run "$LINENO"; then :
-  openssl_cleanse_broken=no
-else
-
-     openssl_cleanse_broken=yes
-
-$as_echo "#define OPENSSL_CLEANSE_BROKEN 1" >>confdefs.h
-
-
-fi
-rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
-  conftest.$ac_objext conftest.beam conftest.$ac_ext
-fi
-
-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $openssl_cleanse_broken" >&5
-$as_echo "$openssl_cleanse_broken" >&6; }
-
    { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to leverage OpenSSL KDF algorithm" >&5
 $as_echo_n "checking whether to leverage OpenSSL KDF algorithm... " >&6; }
    # Check whether --enable-openssl-kdf was given.
@@ -6113,7 +6047,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -6140,7 +6074,7 @@ Alternatively, you may set the environment variables nss_CFLAGS
 and nss_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
 elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
 $as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
