@@ -1825,7 +1825,7 @@ static srtp_err_status_t srtp_protect_aead(srtp_ctx_t *ctx,
     /*
      * Set the AAD over the RTP header
      */
-    aad_len = (uint8_t *)enc_start - (uint8_t *)hdr;
+    aad_len = (unsigned int)((uint8_t *)enc_start - (uint8_t *)hdr);
     status =
         srtp_cipher_set_aad(session_keys->rtp_cipher, (uint8_t *)hdr, aad_len);
     if (status) {
@@ -1970,7 +1970,7 @@ static srtp_err_status_t srtp_unprotect_aead(srtp_ctx_t *ctx,
     /*
      * Set the AAD for AES-GCM, which is the RTP header
      */
-    aad_len = (uint8_t *)enc_start - (uint8_t *)hdr;
+    aad_len = (unsigned int)((uint8_t *)enc_start - (uint8_t *)hdr);
     status =
         srtp_cipher_set_aad(session_keys->rtp_cipher, (uint8_t *)hdr, aad_len);
     if (status) {
